@@ -5,3 +5,7 @@ uuid6>=2.0.12
 # --- Web Framework e Ingestão (Edge) ---
 fastapi>=0.110.0
 uvicorn[standard]>=0.29.0
+
+# --- Banco de Dados ORM e Drivers (AWS RDS) ---
+SQLAlchemy>=2.0.28
+asyncpg>=0.29.0
