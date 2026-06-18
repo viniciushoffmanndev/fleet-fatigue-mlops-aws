@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 # Instanciando a aplicação com metadados para o Swagger corporativo
 app = FastAPI(
-    title="ArgusVision - Telemetry Ingestion API",
+    title="Telemetry Ingestion API",
     description="Edge-to-Cloud API para ingestão e validação de eventos de visão computacional (fadiga em frotas).",
     version="1.0.0"
 )
@@ -27,6 +27,7 @@ async def health_check():
     tags=["Ingestion"],
     summary="Recebe e valida eventos de telemetria da borda (caminhão)"
 )
+
 async def ingest_telemetry(
     event: TelemetryEvent, 
     db: AsyncSession = Depends(get_db) # <-- INJEÇÃO DE DEPENDÊNCIA AQUI
