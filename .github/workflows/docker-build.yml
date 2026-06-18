@@ -1,0 +1,36 @@
+name: CI - Build Docker Image
+
+# Isso diz ao GitHub: "Rode esta automação toda vez que o Vinicius fizer um PUSH na branch main"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Docker Image
+    # O GitHub vai alugar uma máquina Ubuntu novinha para rodar isso
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Baixa o seu código do repositório para a máquina do GitHub
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Passo 2: Configura o Docker na máquina do GitHub
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Passo 3: Lê o seu Dockerfile e constrói a imagem
+      - name: Build Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          # Aqui dizemos "false" para não empurrar (push) para nenhum registro AINDA.
+          # O objetivo de hoje é apenas testar se a receita (Dockerfile) compila sem erros.
+          push: false
+          tags: argus-telemetry-api:latest
