@@ -1,13 +1,19 @@
 import os
+from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from collections.abc import AsyncGenerator
 
-# Em produção real, isso viria de variáveis de ambiente (.env) ou AWS Secrets Manager
-# Estamos usando o prefixo postgresql+asyncpg para invocar o driver assíncrono de alta performance
+# Carrega as variáveis do arquivo .env para a mamória do sistema
+load_dotenv()
+
+# Buscando a URL da Neon
 DATABASE_URL = os.getenv(
-    "DATABASE_URL", 
-    "postgresql+asyncpg://postgres:senha_super_segura@localhost:5432/argus_telemetry"
+    "DATABASE_URL"
 )
+
+# Fail-Fast: Se não achar a variável, levanta um erro crítico imediatamente
+if not DATABASE_URL:
+    raise ValueError("CRÍTICO: a variável de ambiente DATABASE_URL não foi encontrada. Verifique o arquivo .env")
 
 # Criando o Motor de Banco de Dados (Engine)
 # pool_size e max_overflow: controlamos o limite de conexões simultâneas
