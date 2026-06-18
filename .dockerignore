@@ -1,0 +1,23 @@
+# ==============================================================================
+# DOCKER IGNORE
+# ==============================================================================
+
+# --- Ambientes Virtuais ---
+venv/
+.venv/
+env/
+
+# --- Caches e Compilados ---
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# --- Segredos e Configurações Locais (CRÍTICO) ---
+.env
+.git/
+.gitignore
+
+# --- Arquivos de IDE ---
+.vscode/
+.idea/
